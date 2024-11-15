@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .backdrop-blur {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <button id="sidebarToggle" aria-label="Toggle Sidebar" class="fixed top-4 left-4 z-50 lg:hidden bg-white p-2 rounded-md shadow-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur hidden lg:hidden" aria-hidden="true"></div>
+
+    <aside id="sidebar" class="fixed top-0 left-0 z-40 h-screen w-64 bg-white bg-opacity-80 backdrop-blur transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0">
+        <div class="flex h-16 items-center justify-center border-b border-gray-200">
+            <h1 class="text-2xl font-bold text-gray-800">My Portfolio</h1>
+        </div>
+        <nav class="h-[calc(100vh-4rem)] overflow-y-auto px-3 py-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="dashboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="create-project">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Create Project
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="analytics">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Analytics
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="achievements">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Achievements
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="settings">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-all" data-page="contact">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main id="main-content" class="p-4 lg:ml-64 transition-all duration-300 ease-in-out">
+        <div id="dashboard" class="page-content">
+            <h2 class="text-2xl font-semibold mb-4">Dashboard</h2>
+            <p>Welcome to your portfolio dashboard. Here you can see an overview of your projects and activities.</p>
+        </div>
+        <div id="create-project" class="page-content hidden">
+            <h2 class="text-2xl font-semibold mb-4">Create New Project</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="project-name" class="block text-sm font-medium text-gray-700">Project Name</label>
+                    <input type="text" id="project-name" name="project-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="project-description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <textarea id="project-description" name="project-description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Create Project</button>
+            </form>
+        </div>
+        <div id="analytics" class="page-content hidden">
+            <h2 class="text-2xl font-semibold mb-4">Analytics</h2>
+            <p>View your project analytics and performance metrics here.</p>
+        </div>
+        <div id="achievements" class="page-content hidden">
+            <h2 class="text-2xl font-semibold mb-4">Achievements & Experience</h2>
+            <ul class="space-y-4">
+                <li class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Web Development Certification</h3>
+                    <p class="text-gray-600">Completed advanced course in full-stack web development</p>
+                </li>
+                <li class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Project Lead - E-commerce Platform</h3>
+                    <p class="text-gray-600">Led a team of 5 developers to create a successful online marketplace</p>
+                </li>
+                <li class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold">Open Source Contributor</h3>
+                    <p class="text-gray-600">Active contributor to various open-source projects on GitHub</p>
+                </li>
+            </ul>
+        </div>
+        <div id="settings" class="page-content hidden">
+            <h2 class="text-2xl font-semibold mb-4">Settings</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="display-name" class="block text-sm font-medium text-gray-700">Display Name</label>
+                    <input type="text" id="display-name" name="display-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="theme" class="block text-sm font-medium text-gray-700">Theme</label>
+                    <select id="theme" name="theme" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option>Light</option>
+                        <option>Dark</option>
+                        <option>System</option>
+                    </select>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Save Settings</button>
+            </form>
+        </div>
+        <div id="contact" class="page-content hidden">
+            <h2 class="text-2xl font-semibold mb-4">Contact</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                    <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"></textarea>
+                </div>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const overlay = document.getElementById('overlay');
+        const main = document.querySelector('main');
+        const menuItems = document.querySelectorAll('nav a');
+        const pages = document.querySelectorAll('.page-content');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+            main.classList.toggle('lg:ml-64');
+        }
+
+        function showPage(pageId) {
+            pages.forEach(page => {
+                page.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = e.currentTarget.getAttribute('data-page');
+                showPage(pageId);
+                menuItems.forEach(menuItem => {
+                    menuItem.classList.remove('bg-gray-100', 'text-gray-900');
+                });
+                e.currentTarget.classList.add('bg-gray-100', 'text-gray-900');
+                if (window.innerWidth < 1024) {
+                    toggleSidebar();
+                }
+            });
+        });
+
+        // Close sidebar when pressing Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !sidebar.classList.contains('-translate-x-full')) {
+                toggleSidebar();
+            }
+        });
+
+        // Handle responsiveness
+        function handleResize() {
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.add('hidden');
+                main.classList.add('lg:ml-64');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                main.classList.remove('lg:ml-64');
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call to set correct state
+
+        // Set initial active page
+        showPage('dashboard');
+        menuItems[0].classList.add('bg-gray-100', 'text-gray-900');
+    </script>
+</body>
+  </html>
